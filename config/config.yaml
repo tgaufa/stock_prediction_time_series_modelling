@@ -1,0 +1,27 @@
+# Path Related
+raw_dataset_dir: data/raw/
+
+# Debug Related
+print_debug: true
+
+# Columns by data type related
+datetime_columns:
+- Date
+float_columns:
+- dataset.columns[1:]
+
+# Predictors and Prediction Related
+prediction: BMRI Return D+2
+predictors:
+- dataset.columns[1:-1]
+
+# Range of Data Related
+range_date:
+- 2020-01-01
+- Today()
+
+range_other_columns:
+- -1.0
+- 1.0
+
+# Replacement for missing value related
