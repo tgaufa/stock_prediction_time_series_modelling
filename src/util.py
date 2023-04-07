@@ -28,7 +28,7 @@ def pickle_dump(data, file_path: str) -> None:
     joblib.dump(data, file_path)
 
 params = load_config()
-PRINT_DEBUG = params("print_debug")
+PRINT_DEBUG = params["print_debug"]
 
 def print_debug(messages: str) -> None:
     # Check whether user wants to use print

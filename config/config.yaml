@@ -1,5 +1,6 @@
 # Path Related
-raw_dataset_dir: data/raw/
+raw_dataset_dir: 'data/raw/Daftar Saham.xlsx'
+raw_dataset_path: data/processed/raw_dataset.pkl
 
 # Debug Related
 print_debug: true
@@ -19,6 +20,12 @@ predictors:
 range_date:
 - 2020-01-01
 - Today()
+
+# ticker related data
+ticker_ext: .JK
+start_date: !!str 2020-01-01
+end_date: date.today()
+interval_date: 1d
 
 range_other_columns:
 - -1.0
