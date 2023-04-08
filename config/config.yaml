@@ -11,10 +11,9 @@ datetime_columns:
 float_columns:
 - dataset.columns[1:]
 
-# Predictors and Prediction Related
-prediction: BMRI Return D+2
-predictors:
-- dataset.columns[1:-1]
+# Predictors and Target Related
+target: BMRI.JK
+predictors: All columns except target
 
 # Range of Data Related
 range_date:
