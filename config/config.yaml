@@ -2,14 +2,22 @@
 raw_dataset_dir: 'data/raw/Daftar Saham.xlsx'
 raw_dataset_path: data/processed/raw_dataset.pkl
 
+train_set_path:
+- data/processed/x_train.pkl
+- data/processed/y_train.pkl
+valid_set_path:
+- data/processed/x_valid.pkl
+- data/processed/y_valid.pkl
+test_set_path:
+- data/processed/x_test.pkl
+- data/processed/y_test.pkl
+
 # Debug Related
 print_debug: true
 
 # Columns by data type related
-datetime_columns:
-- Date
-float_columns:
-- dataset.columns[1:]
+datetime_index: datetime64[ns]
+float_columns: dataset.columns[1:]
 
 # Predictors and Target Related
 target: BMRI.JK
