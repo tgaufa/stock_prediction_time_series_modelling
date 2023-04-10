@@ -30,7 +30,7 @@ range_date:
 
 # ticker related data
 ticker_ext: .JK
-start_date: !!str 2020-01-01
+start_date: !!str 2022-01-01
 end_date: date.today()
 interval_date: 1d
 
