@@ -1,7 +1,9 @@
 # Path Related
 raw_dataset_dir: 'data/raw/Daftar Saham.xlsx'
 raw_dataset_path: data/processed/raw_dataset.pkl
+clean_dataset_path: data/processed/clean_dataset.pkl
 
+# Time Series Split Set
 train_set_path:
 - data/processed/x_train.pkl
 - data/processed/y_train.pkl
@@ -11,6 +13,17 @@ valid_set_path:
 test_set_path:
 - data/processed/x_test.pkl
 - data/processed/y_test.pkl
+
+# Random Split Set
+train_ran_set_path:
+- data/processed/x_ran_train.pkl
+- data/processed/y_ran_train.pkl
+valid_ran_set_path:
+- data/processed/x_ran_valid.pkl
+- data/processed/y_ran_valid.pkl
+test_ran_set_path:
+- data/processed/x_ran_test.pkl
+- data/processed/y_ran_test.pkl
 
 # Debug Related
 print_debug: true
