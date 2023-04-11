@@ -25,6 +25,17 @@ test_ran_set_path:
 - data/processed/x_ran_test.pkl
 - data/processed/y_ran_test.pkl
 
+# Featured Data
+train_feng_set_path:
+- data/processed/x_train_feng.pkl
+- data/processed/y_train_feng.pkl
+valid_feng_set_path:
+- data/processed/x_valid_feng.pkl
+- data/processed/y_valid_feng.pkl
+test_feng_set_path:
+- data/processed/x_test_feng.pkl
+- data/processed/y_test_feng.pkl
+
 # Debug Related
 print_debug: true
 
