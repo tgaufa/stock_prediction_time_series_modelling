@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import seaborn as sns
-import src.util as util
+import util as util
 
 def load_dataset(config_data: dict) -> pd.DataFrame:
     

@@ -6,7 +6,7 @@ from datetime import date
 import joblib
 import os
 import yaml
-import src.util as util
+import util as util
 from sklearn.model_selection import TimeSeriesSplit
 
 def read_raw_data(config: dict) -> pd.DataFrame:

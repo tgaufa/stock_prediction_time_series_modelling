@@ -16,7 +16,7 @@ import numpy as np
 import copy
 import hashlib
 
-import src.util as util
+import util as util
 
 
 def load_train_feng(params: dict) -> pd.DataFrame:
@@ -408,4 +408,16 @@ if __name__ == "__main__":
 
     list_of_trained_model, training_log = train_eval("Hyperparams_Tuning", params, hyper_params_tuning(model))
 
-    
+    # Load data
+    x_train, y_train = load_train_feng(params)
+    x_valid, y_valid = load_valid_feng(params)
+
+    # Fit the model on the training set
+    model["model_data"]["model_object"].fit(x_train, y_train)
+
+    # Make predictions on the validation set
+    y_pred = model["model_data"]["model_object"].predict(x_valid)
+
+    # Calculate Mean Squared Error
+    mse = mean_squared_error(y_valid, y_pred)
+    print("Mean Squared Error:", mse)
