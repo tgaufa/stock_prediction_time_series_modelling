@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import uvicorn
 import pandas as pd
 import util as util
@@ -9,17 +9,35 @@ import preprocessing as preprocessing
 config_data = util.load_config()
 model_data = util.pickle_load(config_data["production_model_path"])
 
-class api_data(BaseModel):
-    ticker1 : float
-    ticker2 : float
-    ticker3 : float
-    ticker4 : float
-    ticker5 : float
-    ticker6 : float
-    ticker7 : float
-    ticker8 : float
-    ticker9 : float
-    ticker10 : float
+
+class ApiData(BaseModel):
+    class Config:
+        allow_population_by_field_name = True
+
+    INTD_JK: float = Field(..., alias="INTD.JK")
+    ULTJ_JK: float = Field(..., alias="ULTJ.JK")
+    PDES_JK: float = Field(..., alias="PDES.JK")
+    KICI_JK: float = Field(..., alias="KICI.JK")
+    PGJO_JK: float = Field(..., alias="PGJO.JK")
+    IKBI_JK: float = Field(..., alias="IKBI.JK")
+    APII_JK: float = Field(..., alias="APII.JK")
+    TLKM_JK: float = Field(..., alias="TLKM.JK")
+    JKON_JK: float = Field(..., alias="JKON.JK")
+
+data = {
+    "INTD.JK": 1.0,
+    "ULTJ.JK": 2.0,
+    "PDES.JK": 3.0,
+    "KICI.JK": 4.0,
+    "PGJO.JK": 5.0,
+    "IKBI.JK": 6.0,
+    "APII.JK": 7.0,
+    "TLKM.JK": 8.0,
+    "JKON.JK": 9.0
+}
+
+api_data = ApiData(**data)
+
 
 app = FastAPI()
 
@@ -28,7 +46,7 @@ def home():
     return "Hello, FastAPI up!"
 
 @app.post("/predict/")
-def predict(data: api_data):    
+def predict(data: ApiData):    
     # Convert data api to dataframe
     data = pd.DataFrame(data).set_index(0).T.reset_index(drop = True)
 
