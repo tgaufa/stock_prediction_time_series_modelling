@@ -1,9 +1,12 @@
 # Path Related
 raw_dataset_dir: 'data/raw/Daftar Saham.xlsx'
+
 raw_dataset_path: data/processed/raw_dataset.pkl
+log_dataset_path: data/processed/log_dataset.pkl
 clean_dataset_path: data/processed/clean_dataset.pkl
 production_model_path: models/production_model.pkl
 training_log_path: log/training_log.json
+predict_dataset_path: data/processed/predict_dataset.pkl
 
 
 # Time Series Split Set
@@ -38,6 +41,10 @@ float_columns: dataset.columns[1:]
 # Predictors and Target Related
 target: BMRI.JK
 predictors: All columns except target
+
+target_stock: BMRI.JK
+feature_stock: ['^JKII', '^JKLQ45', '^JKSE']
+
 
 # Range of Data Related
 range_date:
