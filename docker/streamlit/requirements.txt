@@ -14,3 +14,4 @@ tqdm==4.64.1
 uvicorn==0.21.1
 xgboost==1.7.5
 yfinance==0.2.14
+statsmodels>=0.12.2

@@ -1,6 +1,6 @@
 import streamlit as st
 import altair as alt
-from vega_datasets import data
+
 import src.util as util
 import pandas as pd
 import numpy as np
@@ -22,17 +22,17 @@ stock_price = pd.concat([actual_price, predict_price], axis=0)
 stock_price.index.name = 'date'
 stock_price.reset_index(inplace=True)
 
-source = data.stocks()
+
 
 latest_price = stock_price[stock_price['symbol'] == params["target_stock"] + ' Actual'].sort_values(by='date', ascending=False).iloc[0]['price']
 latest_price_lag = stock_price[stock_price['symbol'] == params["target_stock"] + ' Actual'].sort_values(by='date', ascending=False).iloc[1]['price']
 change = (latest_price-latest_price_lag)/latest_price_lag
 
 latest_pred = stock_price[stock_price['symbol'] == params["target_stock"] + ' Prediction'].sort_values(by='date', ascending=False).iloc[0]['price']
-latest_pred_lag = stock_price[stock_price['symbol'] == params["target_stock"] + ' Prediction'].sort_values(by='date', ascending=False).iloc[1]['price']
-change_pred = (latest_pred-latest_pred_lag)/latest_pred_lag
+#latest_pred_lag = stock_price[stock_price['symbol'] == params["target_stock"] + ' Prediction'].sort_values(by='date', ascending=False).iloc[1]['price']
+change_pred = (latest_pred-latest_price_lag)/latest_price_lag
 
-change_var = np.abs(change_pred-change)
+change_var = change_pred-change
 price_var = latest_pred-latest_price
 # first row
 a1, a2, a3 = st.columns(3)
@@ -71,6 +71,10 @@ vertical_line = base.mark_rule(color='gray').encode(
     nearest
 )
 
+band = alt.Chart(stock_price).mark_errorband(extent='ci').encode(
+    x='date',
+    y=alt.Y('price')
+)
 
 last_price = base.mark_circle().encode(
     alt.X("last_date['date']:T"),
@@ -95,14 +99,14 @@ text = base.mark_text(align='left', dx=4, dy=-4).encode(
     nearest
 )
 
-chart1 = (line + vertical_line + company_name + text + last_price).encode(
+chart1 = (line + band + vertical_line + company_name + text + last_price).encode(
     x=alt.X('date:T', title="date"),
     y=alt.Y('price:Q', title="price")
 ).interactive()
 
 chart1
 
-source = data.us_employment()
+
 
 
 indices = util.pickle_load(params["clean_dataset_path"])
