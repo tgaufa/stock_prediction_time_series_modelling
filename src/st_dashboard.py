@@ -1,7 +1,7 @@
 import streamlit as st
 import altair as alt
 
-import src.util as util
+import util as util
 import pandas as pd
 import numpy as np
 
