@@ -7,7 +7,7 @@ import numpy as np
 
 params = util.load_config()
 
-with open('style.css') as f:
+with open('src/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 actual_price = pd.DataFrame(util.pickle_load(params["raw_dataset_path"])[params['target_stock']])

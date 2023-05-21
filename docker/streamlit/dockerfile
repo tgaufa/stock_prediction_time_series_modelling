@@ -9,4 +9,4 @@ RUN apt-get update && \
     pip install --upgrade pip wheel streamlit && \
     pip install -r requirements.txt
 EXPOSE 8501
-CMD ["streamlit", "run", "st_dashboard.py"]
+CMD ["streamlit", "run", "src/st_dashboard.py"]
