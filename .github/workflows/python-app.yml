@@ -73,12 +73,13 @@ jobs:
           IdentityFile ~/.ssh/deployment.pem
           StrictHostKeyChecking no
         END
-        
+        git@github.com:tgaufa/stock_prediction_time_series_modelling.git
     - name: Deploy to EC2
       run: |
         ssh deploy_ec2 "mkdir -p temp/"
         ssh deploy_ec2 "git clone git@github.com:tgaufa/stock_prediction_time_series_modelling.git temp/"
-        ssh deploy_ec2 "rsync -a ./temp ./stock_prediction_time_series_modelling"
+        ssh deploy_ec2 "mkdir -p stock_prediction_time_series_modelling/"
+        ssh deploy_ec2 "rsync -a ./temp/ ./stock_prediction_time_series_modelling"
         ssh deploy_ec2 "rm -rf temp/"
         ssh deploy_ec2 "cd stock_prediction_time_series_modelling && git lfs pull"
         ssh deploy_ec2 "cd stock_prediction_time_series_modelling && sudo docker compose rm -s api && sudo docker compose rm -s streamlit"
