@@ -73,7 +73,7 @@ jobs:
           IdentityFile ~/.ssh/deployment.pem
           StrictHostKeyChecking no
         END
-        git@github.com:tgaufa/stock_prediction_time_series_modelling.git
+        
     - name: Deploy to EC2
       run: |
         ssh deploy_ec2 "mkdir -p temp/"
