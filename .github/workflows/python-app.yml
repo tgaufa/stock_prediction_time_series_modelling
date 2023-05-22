@@ -84,4 +84,4 @@ jobs:
         ssh deploy_ec2 "cd stock_prediction_time_series_modelling && git lfs pull"
         ssh deploy_ec2 "cd stock_prediction_time_series_modelling && sudo docker compose rm -s api && sudo docker compose rm -s streamlit"
         ssh deploy_ec2 "cd stock_prediction_time_series_modelling || sudo docker rmi tgaufa/stock_pred_fastapi_img || sudo docker rmi tgaufa/stock_pred_streamlit_img"
-        ssh deploy_ec2 "cd stock_prediction_time_series_modelling && sudo docker compose pull && sudo docker compose up -d"
+        ssh deploy_ec2 "cd stock_prediction_time_series_modelling && sudo docker compose pull tgaufa/stock-pred-docker:st_hub && tgaufa/stock-pred-docker:fastapi_hub && sudo docker compose up -d"
