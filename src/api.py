@@ -10,33 +10,14 @@ config_data = util.load_config()
 model_data = util.pickle_load(config_data["production_model_path"])
 
 
-class ApiData(BaseModel):
-    class Config:
-        allow_population_by_field_name = True
-
-    INTD_JK: float = Field(..., alias="INTD.JK")
-    ULTJ_JK: float = Field(..., alias="ULTJ.JK")
-    PDES_JK: float = Field(..., alias="PDES.JK")
-    KICI_JK: float = Field(..., alias="KICI.JK")
-    PGJO_JK: float = Field(..., alias="PGJO.JK")
-    IKBI_JK: float = Field(..., alias="IKBI.JK")
-    APII_JK: float = Field(..., alias="APII.JK")
-    TLKM_JK: float = Field(..., alias="TLKM.JK")
-    JKON_JK: float = Field(..., alias="JKON.JK")
-
-data = {
-    "INTD.JK": 1.0,
-    "ULTJ.JK": 2.0,
-    "PDES.JK": 3.0,
-    "KICI.JK": 4.0,
-    "PGJO.JK": 5.0,
-    "IKBI.JK": 6.0,
-    "APII.JK": 7.0,
-    "TLKM.JK": 8.0,
-    "JKON.JK": 9.0
-}
-
-api_data = ApiData(**data)
+class api_data(BaseModel):
+    stasiun : str
+    pm10 : int
+    pm25 : int
+    so2 : int
+    co : int
+    o3 : int
+    no2 : int
 
 
 app = FastAPI()
@@ -46,9 +27,18 @@ def home():
     return "Hello, FastAPI up!"
 
 @app.post("/predict/")
-def predict(data: ApiData):    
+def predict(data: api_data):    
     # Convert data api to dataframe
     data = pd.DataFrame(data).set_index(0).T.reset_index(drop = True)
+
+    # Convert dtype
+    data = pd.concat(
+        [
+            data[config_data["predictors"][0]],
+            data[config_data["predictors"][1:]].astype(int)
+        ],
+        axis = 1
+    )
 
     # Check range data
     try:
@@ -65,4 +55,4 @@ def predict(data: ApiData):
     return {"res" : y_pred, "error_msg": ""}
 
 if __name__ == "__main__":
-    uvicorn.run("api:app", host = "127.0.0.1", port = 8080)
+    uvicorn.run("api:app", host = "0.0.0.0", port = 8080)
